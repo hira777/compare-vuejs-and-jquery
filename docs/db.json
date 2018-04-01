@@ -1,0 +1,25 @@
+{
+  "rankings": {
+    "weekly": [
+      { "userName": "Tak Jaga", "screenName": "takjg", "contributionCount": 557 },
+      { "userName": "Dai Kawai", "screenName": "kkdmgs110", "contributionCount": 510 },
+      { "userName": "こばやし たく", "screenName": "taptappun", "contributionCount": 505 },
+      { "userName": "", "screenName": "liukoki", "contributionCount": 440 },
+      { "userName": "伊勢川 暁", "screenName": "Akira-Isegawa", "contributionCount": 434 }
+    ],
+    "monthly": [
+      { "userName": "", "screenName": "rana_kualu", "contributionCount": 1639 },
+      { "userName": "Kunihiko Ohnaka", "screenName": "kunichiko", "contributionCount": 1392 },
+      { "userName": "", "screenName": "bremen", "contributionCount": 1331 },
+      { "userName": "Dai Kawai", "screenName": "kkdmgs110", "contributionCount": 1284 },
+      { "userName": "Kensuke Otsuki", "screenName": "drken", "contributionCount": 1220 }
+    ],
+    "all": [
+      { "userName": "daichi hiroki", "screenName": "hirokidaichi", "contributionCount": 36806 },
+      { "userName": "Junichi Ito", "screenName": "jnchito", "contributionCount": 36019 },
+      { "userName": "", "screenName": "icoxfog417", "contributionCount": 29587 },
+      { "userName": "", "screenName": "suin", "contributionCount": 23584 },
+      { "userName": "Shuichi Tsutsumi", "screenName": "shu223", "contributionCount": 20579 }
+    ]
+  }
+}

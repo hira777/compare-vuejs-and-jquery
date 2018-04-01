@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport"/>
+  <title>Vue.jsを利用した実装</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/solid.css" integrity="sha384-29Ax2Ao1SMo9Pz5CxU1KMYy+aRLHmOu6hJKgWiViCYpz3f9egAJNwjnKGgr+BXDN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/fontawesome.css" integrity="sha384-Lyz+8VfV0lv38W729WFAmn77iH5OSroyONnUva4+gYaQTic3iI2fnUKtDSpbVf0J" crossorigin="anonymous">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="ranking" class="ranking" style="display:none;">
+    <div class="ranking-label">ユーザーランキング</div>
+    <div class="ranking-loading is-active" v-if="loading"></div>
+    <div class="ranking-tab" v-if="!loading">
+      <div
+        class="ranking-tab-item"
+        v-for="(value, key) in tabs"
+        :key="key"
+        :class="{ 'is-active': key === date }"
+        @click="setDate(key)">
+        {{ value }}
+      </div>
+    </div>
+    <div
+      class="ranking-user"
+      v-if="!loading"
+      v-for="(user, index) in users">
+      <div class="ranking-user-left">
+        <i class="ranking-user-rank fas fa-trophy"
+           v-if="isTop3(index + 1)"
+           :class="[rankColorClass(index + 1)]"
+        ></i>
+        <span
+          class="ranking-user-rank"
+          v-if="!isTop3(index + 1)">
+          {{ index + 1 }}
+        </span>
+        <div>
+          <div
+            class="ranking-user-name"
+            v-if="user.userName !== ''">
+            {{ user.userName }}
+          </div>
+          <div class="ranking-user-screen_name">
+            @{{ user.screenName }}
+          </div>
+        </div>
+      </div>
+      <div class="ranking-user-contribution">
+        <div class="ranking-user-contribution-count">
+          {{ user.contributionCount }}
+        </div>
+        Contributions
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
