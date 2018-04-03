@@ -1,0 +1,20 @@
+---
+  env:
+    browser: true
+    node: true
+    es6: true
+  extends:
+  - eslint:recommended
+  - plugin:vue/recommended
+  - plugin:prettier/recommended
+  parserOptions:
+    sourceType: module
+  rules:
+    no-console: 0
+    no-alert: 0
+    no-debugger: 1
+    prettier/prettier:
+    - error
+    - singleQuote: true
+      bracketSpacing: true
+      trailingComma: es5
