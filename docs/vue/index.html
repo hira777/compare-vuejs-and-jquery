@@ -11,21 +11,19 @@
 <body>
   <div id="ranking" class="ranking" style="display:none;">
     <div class="ranking-label">ユーザーランキング</div>
-    <div class="ranking-loading is-active" v-if="loading"></div>
-    <div class="ranking-tab" v-if="!loading">
+    <div class="ranking-tab">
       <div
         class="ranking-tab-item"
-        v-for="(value, key) in rankingCategories"
+        v-for="(value, key) in rankings"
         :key="key"
-        :class="{ 'is-active': key === category }"
-        @click="setCatgory(key)">
+        :class="{ 'is-active': key === date }"
+        @click="setDate(key)">
         {{ value.title }}
       </div>
     </div>
     <div
       class="ranking-user"
-      v-if="!loading"
-      v-for="(user, index) in users">
+      v-for="(user, index) in items">
       <div class="ranking-user-left">
         <i class="ranking-user-rank fas fa-trophy"
            v-if="isTop3(index + 1)"
@@ -54,14 +52,15 @@
         Contributions
       </div>
     </div>
+    <div class="ranking-loading is-active" v-show="loading"></div>
     <button
       class="ranking-more_button"
-      v-show="isNext"
+      v-show="isNext && !loading"
       @click="incrementIndex">
       もっと見る</button>
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.5.1/qs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.1.3/fetch-jsonp.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
   <script src="app.js"></script>
 </body>

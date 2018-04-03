@@ -3,24 +3,31 @@ new Vue({
 
   data() {
     return {
-      rankings: {},
-
-      rankingCategories: {
+      rankings: {
         weekly: {
           title: '週間',
-          index: 0
+          index: 0,
+          items: [],
+          isNext: true,
+          loading: false,
         },
         monthly: {
           title: '月間',
-          index: 0
+          index: 0,
+          items: [],
+          isNext: true,
+          loading: false,
         },
         all: {
           title: '全て',
-          index: 0
+          index: 0,
+          items: [],
+          isNext: true,
+          loading: false,
         }
       },
 
-      category: 'weekly',
+      date: 'weekly',
 
       rows: 5,
 
@@ -28,50 +35,63 @@ new Vue({
         rank1: 'gold',
         rank2: 'silver',
         rank3: 'bronze',
-      },
-
-      loading: true
+      }
     };
   },
 
   computed: {
-    /**
-     * 選択中のカテゴリ情報
-     */
-    currentCategory() {
-      return this.rankingCategories[this.category];
+    endPoint() {
+      const param = Qs.stringify({
+        date: this.date,
+        index: this.currentRankings.index,
+        rows: this.rows
+      });
+      return `https://script.google.com/macros/s/AKfycbzFQxdGgTZwZsdo7zoXoE0jp37PBsefRUS7_MPgJOo1WDs4UTk/exec?${param}`
     },
 
     /**
      * 選択中のランキング
      */
     currentRankings() {
-      return this.rankings[this.category];
+      return this.rankings[this.date];
     },
 
     /**
-     * 表示するランキング数
+     * 描画するランキング情報
      */
-    countToShow() {
-      return (this.currentCategory.index + 1) * this.rows;
-    },
-
-    /**
-     * 描画するランキングのユーザー
-     */
-    users() {
-      if (!this.currentRankings) return;
-
-      return this.currentRankings.slice(0, this.countToShow);
+    items() {
+      return this.currentRankings.items;
     },
 
     /**
      * 選択中のランキングを全て表示したかどうか
      */
     isNext() {
-      if (!this.users) return;
+      return this.currentRankings.isNext;
+    },
 
-      return this.currentRankings.length > this.countToShow;
+    /**
+     *  選択中のランキングの描画すべきアイテム数
+     */
+    itemLengthShouldRender() {
+      return (this.currentRankings.index + 1) * this.rows;
+    },
+
+    /**
+     * 更新できる状態かどうか
+     */
+    canUpdate() {
+      return !this.loading &&
+        this.currentRankings.isNext &&
+        // 選択中のランキングのアイテム数が描画すべきアイテム数より少ないかどうか
+        this.items.length < this.itemLengthShouldRender;
+    },
+
+    /**
+     * 選択中のランキングを読み込み中かどうか
+     */
+    loading() {
+      return this.currentRankings.loading;
     }
   },
 
@@ -80,7 +100,7 @@ new Vue({
      * 選択中のカテゴリのインデックスを加算する
      */
     incrementIndex() {
-      this.currentCategory.index += 1;
+      this.currentRankings.index += 1;
     },
 
     /**
@@ -104,23 +124,44 @@ new Vue({
     /**
      * 選択中のランキングのカテゴリを更新する
      */
-    setCatgory(category) {
-      this.category = category;
+    setDate(date) {
+      this.date = date;
+    },
+
+    /**
+     * 更新（新たなデータを取得する）
+     */
+    update() {
+      this.currentRankings.loading = true;
+      const rankingDateWhenFetch = this.date;
+      
+      fetchJsonp(this.endPoint)
+        .then(response => {
+          response.json().then(data => {
+            this.rankings[rankingDateWhenFetch].loading = false;
+            this.rankings[rankingDateWhenFetch].isNext = data.isNext;
+            this.rankings[rankingDateWhenFetch].items =
+              (this.rankings[rankingDateWhenFetch].items.length < 1)
+                ? data.rankings
+                : [...this.rankings[rankingDateWhenFetch].items, ...data.rankings];
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  },
+  
+  watch: {
+    endPoint() {
+      if (this.canUpdate) {
+        this.update();
+      }
     }
   },
 
   created() {
-    axios.get('../db.json')
-      .then((response) => {
-        // ローディングを表示させるために敢えてsetTimeout
-        setTimeout(() => {
-          this.loading = false;
-          this.rankings = response.data.rankings;
-        }, 1000);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.update();
   },
 
   mounted() {
