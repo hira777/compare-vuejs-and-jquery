@@ -15,11 +15,11 @@
     <div class="ranking-tab" v-if="!loading">
       <div
         class="ranking-tab-item"
-        v-for="(value, key) in tabs"
+        v-for="(value, key) in rankingCategories"
         :key="key"
-        :class="{ 'is-active': key === date }"
-        @click="setDate(key)">
-        {{ value }}
+        :class="{ 'is-active': key === category }"
+        @click="setCatgory(key)">
+        {{ value.title }}
       </div>
     </div>
     <div
@@ -54,6 +54,11 @@
         Contributions
       </div>
     </div>
+    <button
+      class="ranking-more_button"
+      v-show="isNext"
+      @click="incrementIndex">
+      もっと見る</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
