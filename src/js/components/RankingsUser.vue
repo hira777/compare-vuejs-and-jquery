@@ -14,8 +14,14 @@
 </template>
 
 <script>
+import RankingsItem from './RankingsItem.vue';
+
 export default {
   name: 'RankingsUsers',
+
+  components: {
+    RankingsItem,
+  },
 
   props: {
     rank: {
@@ -44,6 +50,7 @@ export default {
     isTop3() {
       return this.rank < 4;
     },
+
     rankColorClass() {
       const color = this.rankColor[`rank${this.rank}`];
       return `is-${color}`;

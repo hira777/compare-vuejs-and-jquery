@@ -17,9 +17,9 @@
 <script>
 import jsonp from 'jsonp';
 import qs from 'qs';
-import Rankings from './components/Rankings.vue';
-import Loading from './components/Loading.vue';
-import Button from './components/Button.vue';
+import Rankings from '../components/Rankings.vue';
+import Loading from '../components/Loading.vue';
+import Button from '../components/Button.vue';
 
 export default {
   name: 'App',

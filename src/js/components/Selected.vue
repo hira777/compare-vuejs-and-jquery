@@ -1,3 +1,5 @@
+<!--振る舞いを提供するコンポーネント-->
+
 <template lang="pug">
   div
     slot(
