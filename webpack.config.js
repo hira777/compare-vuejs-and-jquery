@@ -4,6 +4,7 @@ module.exports = {
   entry: {
     'vue-single-file-components/app':
       './src/js/vue-single-file-components/app.js',
+    'vue-vuex/app': './src/js/vue-vuex/app.js',
   },
 
   output: {

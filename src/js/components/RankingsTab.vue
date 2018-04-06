@@ -1,3 +1,5 @@
+<!--Presentationalコンポーネント-->
+
 <template lang="pug">
   .rankings-tab
     slot

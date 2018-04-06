@@ -1,10 +1,20 @@
+<!--Presentationalコンポーネント-->
+
 <template lang="pug">
-  .loading.is-active
+  .loading.is-active(v-show="isLoading")
 </template>
 
 <script>
 export default {
   name: 'Loading',
+
+  props: {
+    isLoading: {
+      type: Boolean,
+      require: true,
+      default: false,
+    },
+  },
 };
 </script>
 

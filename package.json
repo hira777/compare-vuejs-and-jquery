@@ -8,7 +8,8 @@
     "dev": "webpack --mode development --watch",
     "watch:css": "npm run build:css -- --watch",
     "build:js": "webpack --mode production",
-    "build:css": "node-sass --output-style compressed -o docs src/scss"
+    "build:css": "node-sass --output-style compressed -o docs src/scss",
+    "lint": "eslint --fix src/js --ext=js,vue"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -28,8 +29,8 @@
     "sass-loader": "^6.0.7",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.13"
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
   },
   "dependencies": {
     "jquery": "^3.3.1",

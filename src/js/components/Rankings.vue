@@ -1,3 +1,5 @@
+<!--Containerコンポーネント-->
+
 <template lang="pug">
   .rankings
     rankings-label(v-if="label !== ''") {{label}}
@@ -19,12 +21,18 @@
 </template>
 
 <script>
+// MEMO
+// 現在ユーザーランキングを表示させているがタグランキングを表示させたいとなってこのコンポーネントを
+// 再利用しようとしたらすべてが破綻する、
+// 改善策
+// ・Rankings.vue => UserRankings.vueにして、tagRankingsを作成すれば解決
+// ・rankingsUserをslotにして外からぶちこむ
 import flatMap from 'lodash/flatMap';
 import Selected from './Selected.vue';
 import RankingsLabel from './RankingsLabel.vue';
 import RankingsTab from './RankingsTab.vue';
 import RankingsTabItem from './RankingsTabItem.vue';
-import RankingsUser from './rankingsUser.vue';
+import RankingsUser from './RankingsUser.vue';
 
 export default {
   name: 'Rankings',

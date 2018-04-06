@@ -1,3 +1,5 @@
+<!--Presentationalコンポーネント-->
+
 <template lang="pug">
   button.button(:class="[`button-${type}`]")
     slot
