@@ -2,10 +2,15 @@ class Rankings {
   constructor() {
     this.rankings = {
       weekly: {
+        // 見出し
         title: '週間',
+        // インデックス
         index: 0,
+        // ランキングデータ
         items: [],
+        // まだ読み込んでいないランキングがあるかどうか（APIから取得）
         isNext: true,
+        // ランキングを読み込み中かどうか
         loading: false,
       },
       monthly: {
@@ -23,7 +28,8 @@ class Rankings {
         loading: false,
       }
     };
-    this.date = 'weekly';
+    this.currentDate = 'weekly';
+    // 1回のAPIコール時に取得するランキング数
     this.rows = 5;
     this.rankColor = {
       rank1: 'gold',
@@ -72,13 +78,13 @@ class Rankings {
     this.startLoading();
     this.hideMoreLoadButton();
     this.currentRankings().loading = true;
-    const rankingDateWhenFetch = this.date;
+    const rankingDateWhenFetch = this.currentDate;
 
     $.ajax({
       url: 'https://script.google.com/macros/s/AKfycbzFQxdGgTZwZsdo7zoXoE0jp37PBsefRUS7_MPgJOo1WDs4UTk/exec',
       dataType: 'jsonp',
       data: {
-        date: this.date,
+        date: this.currentDate,
         index: this.currentRankings().index,
         rows: this.rows
       }
@@ -111,7 +117,7 @@ class Rankings {
    * 現在選択中のランキング
    */
   currentRankings() {
-    return this.rankings[this.date];
+    return this.rankings[this.currentDate];
   }
 
   /**
@@ -208,7 +214,7 @@ class Rankings {
 
       $tabItem.removeClass('is-active');
       $this.addClass('is-active');
-      this.date = $this.attr('data-date');
+      this.currentDate = $this.attr('data-date');
       this.renderRankings();
       this.updateMoreLoadButton();
       this.updateLoading();
