@@ -1,4 +1,4 @@
-<!--Containerコンポーネント-->
+<!--Presentationalコンポーネント-->
 
 <template lang="pug">
   .rankings
@@ -11,7 +11,7 @@
         v-if="tabItems.length > 0"
         v-for="(item, index) in tabItems",
         :isActive="index === selectedIndex",
-        @click.native="select(index), setCurrentIndex(index), handleIndex(index)") {{item}}
+        @click.native="select(index), handleIndex(index)") {{item}}
     rankingsUser(
     v-for="(rankingsUser, index) in currentRankingsItems",
     :rank="index + 1",
@@ -27,7 +27,6 @@
 // 改善策
 // ・Rankings.vue => UserRankings.vueにして、tagRankingsを作成すれば解決
 // ・rankingsUserをslotにして外からぶちこむ
-import flatMap from 'lodash/flatMap';
 import Selected from './Selected.vue';
 import RankingsLabel from './RankingsLabel.vue';
 import RankingsTab from './RankingsTab.vue';
@@ -56,43 +55,19 @@ export default {
       type: String,
       default: '',
     },
-    rankings: {
+    tabItems: {
       type: Array,
       required: true,
       default() {
         return [];
       },
-      // TODO
-      // オブジェクトの中身をチェック
-      // validator(value) {
-      //   console.log(value);
-      // },
     },
-  },
-
-  data() {
-    return {
-      currentIndex: 0,
-    };
-  },
-
-  computed: {
-    tabItems() {
-      return flatMap(this.rankings, rankings => [rankings.label]);
-    },
-
-    currentRankings() {
-      return this.rankings[this.currentIndex];
-    },
-
-    currentRankingsItems() {
-      return this.currentRankings.items;
-    },
-  },
-
-  methods: {
-    setCurrentIndex(index) {
-      this.currentIndex = index;
+    currentRankingsItems: {
+      type: Array,
+      required: true,
+      default() {
+        return [];
+      },
     },
   },
 };

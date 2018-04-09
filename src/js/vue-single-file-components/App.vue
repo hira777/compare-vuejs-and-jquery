@@ -2,8 +2,8 @@
   #app
     rankings(
     :label="rankings.label",
-    :rankings="rankings.data",
-    :rows="rankings.rows",
+    :tabItems="rankingsTabItems",
+    :currentRankingsItems="currentRankingsItems",
     :handleIndex="handleRankingsDataIndex")
       loading(
       v-show="loadingRankings"
@@ -15,8 +15,11 @@
 </template>
 
 <script>
+// MEMO
+// RootのApp.vueにランキング関連の状態を持つのはイケてない(要件によりけり)
 import jsonp from 'jsonp';
 import qs from 'qs';
+import flatMap from 'lodash/flatMap';
 import Rankings from '../components/Rankings.vue';
 import Loading from '../components/Loading.vue';
 import Button from '../components/Button.vue';
@@ -69,6 +72,14 @@ export default {
   computed: {
     currentRankings() {
       return this.rankings.data[this.rankings.dataIndex];
+    },
+
+    currentRankingsItems() {
+      return this.currentRankings.items;
+    },
+
+    rankingsTabItems() {
+      return flatMap(this.rankings.data, rankings => [rankings.label]);
     },
 
     loadingRankings() {
