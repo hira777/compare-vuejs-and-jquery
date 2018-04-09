@@ -4,7 +4,7 @@
   rankings-with-slot(
   :label="label",
   :tabItems="categories",
-  :handleIndex="index => {this.$store.commit('rankings/userRankings/setDataIndex', {index})}")
+  :handleIndex="handleIndex")
     user-rankings-item(
     slot="items",
     v-for="(user, index) in items",
@@ -43,30 +43,21 @@ export default {
       'items',
       'isNext',
       'isLoading',
-      'shouldUpdate',
-      'endPoint',
     ]),
   },
 
-  watch: {
-    endPoint() {
-      if (this.shouldUpdate) {
-        this.$store.dispatch('rankings/userRankings/UPDATE_RANKINGS', {
-          root: true,
-        });
-      }
-    },
-  },
-
   created() {
-    this.$store.dispatch('rankings/userRankings/UPDATE_RANKINGS', {
-      root: true,
-    });
+    this.$store.dispatch('rankings/userRankings/UPDATE_RANKINGS');
   },
 
   methods: {
     handleClick() {
       this.$store.commit('rankings/userRankings/incrementIndex');
+      this.$store.dispatch('rankings/userRankings/UPDATE_RANKINGS');
+    },
+    handleIndex(index) {
+      this.$store.commit('rankings/userRankings/setDataIndex', { index });
+      this.$store.dispatch('rankings/userRankings/UPDATE_RANKINGS');
     },
   },
 };

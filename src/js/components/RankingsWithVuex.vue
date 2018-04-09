@@ -46,6 +46,7 @@ export default {
       required: true,
     },
   },
+
   computed: {
     label() {
       return this.$store.getters[`rankings/${this.rankingsType}/label`];
@@ -62,22 +63,6 @@ export default {
     isLoading() {
       return this.$store.getters[`rankings/${this.rankingsType}/isLoading`];
     },
-    shouldUpdate() {
-      return this.$store.getters[`rankings/${this.rankingsType}/shouldUpdate`];
-    },
-    endPoint() {
-      return this.$store.getters[`rankings/${this.rankingsType}/endPoint`];
-    },
-  },
-
-  watch: {
-    endPoint() {
-      if (this.shouldUpdate) {
-        this.$store.dispatch(`rankings/${this.rankingsType}/UPDATE_RANKINGS`, {
-          root: true,
-        });
-      }
-    },
   },
 
   created() {
@@ -89,10 +74,16 @@ export default {
   methods: {
     handleClick() {
       this.$store.commit(`rankings/${this.rankingsType}/incrementIndex`);
+      this.$store.dispatch(`rankings/${this.rankingsType}/UPDATE_RANKINGS`, {
+        root: true,
+      });
     },
     handleIndex(index) {
       this.$store.commit(`rankings/${this.rankingsType}/setDataIndex`, {
         index,
+      });
+      this.$store.dispatch(`rankings/${this.rankingsType}/UPDATE_RANKINGS`, {
+        root: true,
       });
     },
   },

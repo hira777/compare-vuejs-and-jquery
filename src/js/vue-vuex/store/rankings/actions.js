@@ -2,6 +2,8 @@ import jsonp from 'jsonp';
 
 export default {
   UPDATE_RANKINGS({ commit, state, getters }) {
+    if (!getters.shouldUpdate) return;
+
     const indexWhenFetch = state.dataIndex;
     commit('setLoading', { index: indexWhenFetch, loading: true });
 
