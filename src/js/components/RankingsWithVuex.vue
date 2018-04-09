@@ -24,7 +24,6 @@
 import RankingsLabel from './RankingsLabel.vue';
 import RankingsTab from './RankingsTab.vue';
 import RankingsTabItem from './RankingsTabItem.vue';
-import RankingsUser from './RankingsUser.vue';
 import Selected from './Selected.vue';
 import Loading from './Loading.vue';
 import Button from './Button.vue';
@@ -36,7 +35,6 @@ export default {
     RankingsLabel,
     RankingsTab,
     RankingsTabItem,
-    RankingsUser,
     Selected,
     Loading,
     Button,

@@ -22,7 +22,6 @@ import Selected from './Selected.vue';
 import RankingsLabel from './RankingsLabel.vue';
 import RankingsTab from './RankingsTab.vue';
 import RankingsTabItem from './RankingsTabItem.vue';
-import RankingsUser from './RankingsUser.vue';
 
 export default {
   name: 'Rankings',
@@ -32,7 +31,6 @@ export default {
     RankingsLabel,
     RankingsTab,
     RankingsTabItem,
-    RankingsUser,
   },
 
   props: {

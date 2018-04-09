@@ -14,14 +14,8 @@
 </template>
 
 <script>
-import RankingsItem from './RankingsItem.vue';
-
 export default {
   name: 'RankingsUsers',
-
-  components: {
-    RankingsItem,
-  },
 
   props: {
     rank: {

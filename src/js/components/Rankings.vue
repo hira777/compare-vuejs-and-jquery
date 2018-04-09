@@ -12,7 +12,7 @@
         v-for="(item, index) in tabItems",
         :isActive="index === selectedIndex",
         @click.native="select(index), handleIndex(index)") {{item}}
-    rankingsUser(
+    rankings-user(
     v-for="(rankingsUser, index) in currentRankingsItems",
     :rank="index + 1",
     :rankingsUser="rankingsUser")
