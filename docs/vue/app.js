@@ -1,6 +1,6 @@
 Vue.config.devtools = true;
 
-new Vue({
+const vm = new Vue({
   el: '#ranking',
 
   data() {
