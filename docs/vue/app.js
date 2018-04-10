@@ -3,6 +3,7 @@ Vue.config.devtools = true;
 const vm = new Vue({
   el: '#ranking',
 
+  // 状態
   data() {
     return {
       rankings: {
@@ -41,7 +42,23 @@ const vm = new Vue({
     };
   },
 
+  // computed内にgetter関数を指定できる
+  // methodsに同じような定義をすることで同様の結果になる
+  // 算出プロパティ（computed）は依存関係にもとづきキャッシュされる
+  // 今回の場合、this.rankingsかthis.dateが更新されない限り、以前計算された結果を即時に返す
+  // 計算に無茶苦茶コストがかかる場合、キャッシングを利用するために算出プロパティを利用する
+  // 逆にキャッシュを利用しない（再描画が起こる度に関数を実行したい）場合methodsを利用する
   computed: {
+    /**
+     * 選択中のランキング
+     */
+    currentRankings() {
+      return this.rankings[this.date];
+    },
+
+    /**
+     * エンドポイント
+     */
     endPoint() {
       const param = Qs.stringify({
         date: this.date,
@@ -49,13 +66,6 @@ const vm = new Vue({
         rows: this.rows
       });
       return `https://script.google.com/macros/s/AKfycbzFQxdGgTZwZsdo7zoXoE0jp37PBsefRUS7_MPgJOo1WDs4UTk/exec?${param}`
-    },
-
-    /**
-     * 選択中のランキング
-     */
-    currentRankings() {
-      return this.rankings[this.date];
     },
 
     /**
@@ -153,7 +163,8 @@ const vm = new Vue({
         });
     }
   },
-  
+
+  // 今回の場合endPointの変更を監視する
   watch: {
     endPoint() {
       if (this.canUpdate) {
@@ -162,10 +173,16 @@ const vm = new Vue({
     }
   },
 
+  // インスタンスが作成された後に同期的に呼ばれる
+  // この段階では、インスタンスは、データ監視、算出プロパティ、メソッド、
+  // watch/event コールバックらのオプションのセットアップ処理が完了したことを意味する
+  // まだDOMにはアクセスできない
   created() {
     this.update();
   },
 
+  // インスタンスがマウントされた後に呼ばれる
+  // DOM（this.$el）にアクセスできるようになる
   mounted() {
     this.$el.style.display = "block";
   }
