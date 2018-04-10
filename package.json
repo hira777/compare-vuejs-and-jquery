@@ -9,9 +9,13 @@
     "watch:css": "npm run build:css -- --watch",
     "build:js": "webpack --mode production",
     "build:css": "node-sass --output-style compressed -o docs src/scss",
-    "lint": "eslint --fix src/js --ext=js,vue"
+    "lint": "eslint --fix src/js --ext=js,vue",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.0",
+    "@storybook/addon-knobs": "^3.4.0",
+    "@storybook/vue": "^4.0.0-alpha.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -27,6 +31,7 @@
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
     "sass-loader": "^6.0.7",
+    "storybook-addon-vue-info": "^0.2.0",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.5.0",

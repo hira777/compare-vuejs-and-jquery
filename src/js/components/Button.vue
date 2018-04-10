@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'MoreButton',
+  name: 'MyButton',
 
   props: {
     type: {
